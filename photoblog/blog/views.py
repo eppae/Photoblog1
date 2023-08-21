@@ -4,5 +4,5 @@ from django.contrib import messages  #진행상태를 메시지로 폼에서 출
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-def login(request):
-    render(request,'account/auth-login-basic.html')
+def main(request):
+    return render(request,'main/home.html')
