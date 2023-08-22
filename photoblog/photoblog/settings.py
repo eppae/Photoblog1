@@ -127,3 +127,11 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.naver.com'  # Naver의 SMTP 서버 호스트
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'your_email'  # Naver 계정 이메일 주소
+EMAIL_HOST_PASSWORD = 'your_password'  # Naver 계정 이메일 비밀번호
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # 기본 발신자 이메일
