@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import PasswordResetForm
 from django.urls import reverse
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 # Create your views here.
 def sign_in(request):
     if request.method == 'GET':
@@ -42,7 +44,7 @@ def edit_profile(request):
 def sign_out(request):
     logout(request)
     messages.success(request,f'로그아웃 성공')
-    return redirect(reverse('main'))
+    return redirect(reverse('login'))
 def sign_up(request):
     if request.method =='GET':
         #form = RegisterForm()
@@ -52,6 +54,8 @@ def sign_up(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
+            user.save()
+            user.user_id = user.pk
             user.save()
             messages.success(request,"회원가입 성공")
             username = form.cleaned_data['username']
@@ -79,5 +83,16 @@ def forgot(request):
         else:
             form = PasswordResetForm()
         return render(request,'account/auth-forgot-password-basic.html')
-def password_reset(request):
-    pass
+def edit_notifications(request):
+    if request.method == 'GET':
+        return render(request,'account/pages-account-settings-notifications.html')
+def edit_connections(request):
+    if request.method == 'GET':
+        return render(request, 'account/pages-account-settings-connections.html')
+@require_POST
+def delete_user(request):
+    if request.user.is_authenticated and request.POST.get("accountActivation"):
+        request.user.delete()
+        return JsonResponse({"success":True})
+    return JsonResponse({"success": False})
+
