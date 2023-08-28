@@ -3,11 +3,13 @@ from . import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path('',views.main,name='main'),
     path('login/',views.sign_in,name='login'),
     path('logout/',views.sign_out,name='logout'),
     path('register/',views.sign_up,name='register'),
     path('forgot/',views.forgot,name='forgot'),
     path('user/editprofile/',views.edit_profile,name='edit-profile'),
+    path('user/saveprofile/',views.save_edit_profile,name='save-profile'),
     path('user/notifications/',views.edit_notifications,name='notifications'),
     path('user/connections/',views.edit_connections,name='connections'),
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),

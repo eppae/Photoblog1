@@ -631,11 +631,12 @@
                     </div>
                     <hr class="my-0" />
                     <div class="card-body">
-                      <form id="formAccountSettings" method="POST" onsubmit="return false">
+                      <form id="formAccountSettings" method="POST" action="{% url 'save-profile' %}" >
+                        {% csrf_token %}
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">성</label>
-                            <input class="form-control" type="text" name="lastName" id="lastName" value="홍" />
+                            <input class="form-control" type="text" name="lastName" id="lastName" value="{{ form.lastName.value }}" placeholder="홍" />
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="firstName" class="form-label">이름</label>
@@ -644,7 +645,8 @@
                               type="text"
                               id="firstName"
                               name="firstName"
-                              value="길동"
+                              placeholder="길동"
+                              value ="{{ form.firstName.value }}"
                               autofocus
                             />
                           </div>
@@ -657,28 +659,18 @@
                                 id="phoneNumber"
                                 name="phoneNumber"
                                 class="form-control"
+                                value="{{ form.phoneNumber.value }}"
                                 placeholder="010-000-0000"
                               />
                             </div>
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="email"
-                              name="email"
-                              value="john.doe@example.com"
-                              placeholder="john.doe@example.com"
-                            />
-                          </div>
-                          <div class="mb-3 col-md-6">
                             <label for="state" class="form-label">시</label>
-                            <input class="form-control" type="text" id="state" name="state" placeholder="서울특별시" />
+                            <input class="form-control" type="text" id="state" name="state" placeholder="서울특별시" value="{{ form.state.value }}"/>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="address" class="form-label">주소</label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="주소" />
+                            <input type="text" class="form-control" id="address" name="address" placeholder="주소" value="{{ form.address.value }}"/>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="Janre" class="form-label">좋아하는 장르</label>
@@ -687,31 +679,31 @@
                               class="form-control"
                               id="Janre"
                               name="Janre"
-                              value="ThemeSelection"
+                              value="{{ form.Janre.value }}"
                             />
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="language" class="form-label">언어</label>
-                            <select id="language" class="select2 form-select">
+                            <select id="language" class="select2 form-select" name="language">
                               <option value="">Select Language</option>
-                              <option value="kr">Korea, Republic of</option>
-                              <option value="en">English</option>
-                              <option value="fr">French</option>
-                              <option value="de">German</option>
-                              <option value="pt">Portuguese</option>
+                              <option value="kr" {% if form.language.value == 'kr' %}selected{% endif %}>Korea, Republic of</option>
+                              <option value="en" {% if form.language.value == 'en' %}selected{% endif %}>English</option>
+                              <option value="fr" {% if form.language.value == 'fr' %}selected{% endif %}>French</option>
+                              <option value="de" {% if form.language.value == 'de' %}selected{% endif %}>German</option>
+                              <option value="pt" {% if form.language.value == 'pt' %}selected{% endif %}>Portuguese</option>
                             </select>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="gender" class="form-label">성별</label>
                             <select id="gender" class="select2 form-select">
-                              <option value="">Select Gender</option>
-                              <option value="male">남</option>
-                              <option value="female">여</option>
+                              <option value="">성별을 선택하세요</option>
+                              <option value="male" {% if form.gender.value == 'male' %}selected{% endif %}>남</option>
+                              <option value="female" {% if form.gender.value == 'female' %}selected{% endif %}>여</option>
                             </select>
                           </div>
                         </div>
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                          <button type="submit" class="btn btn-primary me-2">Save Changes</button>
                           <button type="reset" class="btn btn-outline-secondary">Cancel</button>
                         </div>
                       </form>
@@ -740,7 +732,7 @@
                             >I confirm my account deactivation</label
                           >
                         </div>
-                        <button type="submit" class="btn btn-danger deactivate-account">Deactivate Account</button>
+                        <button type="button" class="btn btn-danger deactivate-account">Deactivate Account</button>
                       </form>
                     </div>
                   </div>

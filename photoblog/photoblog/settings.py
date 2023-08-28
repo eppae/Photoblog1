@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog','users',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +135,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'your_email'  # Naver 계정 이메일 주소
 EMAIL_HOST_PASSWORD = 'your_password'  # Naver 계정 이메일 비밀번호
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # 기본 발신자 이메일
+
